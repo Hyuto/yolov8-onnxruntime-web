@@ -1,6 +1,9 @@
 import cv from "@techstark/opencv-js";
 import { Tensor } from "onnxruntime-web";
 import { renderBoxes } from "./renderBox";
+import labels from "./labels.json";
+
+const numClass = labels.length;
 
 /**
  * Detect Image
@@ -25,7 +28,15 @@ export const detectImage = async (
   const [input, xRatio, yRatio] = preprocessing(image, modelWidth, modelHeight);
 
   const tensor = new Tensor("float32", input.data32F, inputShape); // to ort.Tensor
-  const config = new Tensor("float32", new Float32Array([topk, iouThreshold, scoreThreshold])); // nms config tensor
+  const config = new Tensor(
+    "float32",
+    new Float32Array([
+      numClass, // num class
+      topk, // topk per class
+      iouThreshold, // iou threshold
+      scoreThreshold, // score threshold
+    ])
+  ); // nms config tensor
   const { output0 } = await session.net.run({ images: tensor }); // run session and get output layer
   const { selected } = await session.nms.run({ detection: output0, config: config }); // perform nms and filter boxes
 
