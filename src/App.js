@@ -3,11 +3,12 @@ import cv from "@techstark/opencv-js";
 import { Tensor, InferenceSession } from "onnxruntime-web";
 import Loader from "./components/loader";
 import { detectImage } from "./utils/detect";
+import { download } from "./utils/download";
 import "./style/App.css";
 
 const App = () => {
   const [session, setSession] = useState(null);
-  const [loading, setLoading] = useState("Loading OpenCV.js...");
+  const [loading, setLoading] = useState({ text: "Loading OpenCV.js", progress: null });
   const [image, setImage] = useState(null);
   const inputImage = useRef(null);
   const imageRef = useRef(null);
@@ -18,19 +19,26 @@ const App = () => {
   const modelInputShape = [1, 3, 640, 640];
   const topk = 100;
   const iouThreshold = 0.45;
-  const scoreThreshold = 0.2;
+  const scoreThreshold = 0.25;
 
   // wait until opencv.js initialized
   cv["onRuntimeInitialized"] = async () => {
+    const baseModelURL = `${process.env.PUBLIC_URL}/model`;
+
     // create session
-    setLoading("Loading YOLOv8 model...");
-    const [yolov8, nms] = await Promise.all([
-      InferenceSession.create(`${process.env.PUBLIC_URL}/model/${modelName}`),
-      InferenceSession.create(`${process.env.PUBLIC_URL}/model/nms-yolov8.onnx`),
-    ]);
+    const arrBufNet = await download(
+      `${baseModelURL}/${modelName}`, // url
+      ["Loading YOLOv8 Segmentation model", setLoading] // logger
+    );
+    const yolov8 = await InferenceSession.create(arrBufNet);
+    const arrBufNMS = await download(
+      `${baseModelURL}/nms-yolov8.onnx`, // url
+      ["Loading NMS model", setLoading] // logger
+    );
+    const nms = await InferenceSession.create(arrBufNMS);
 
     // warmup main model
-    setLoading("Warming up model...");
+    setLoading({ text: "Warming up model...", progress: null });
     const tensor = new Tensor(
       "float32",
       new Float32Array(modelInputShape.reduce((a, b) => a * b)),
@@ -44,7 +52,11 @@ const App = () => {
 
   return (
     <div className="App">
-      {loading && <Loader>{loading}</Loader>}
+      {loading && (
+        <Loader>
+          {loading.progress ? `${loading.text} - ${loading.progress}%` : loading.text}
+        </Loader>
+      )}
       <div className="header">
         <h1>YOLOv8 Object Detection App</h1>
         <p>
