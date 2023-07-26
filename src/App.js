@@ -15,7 +15,7 @@ const App = () => {
   const canvasRef = useRef(null);
 
   // Configs
-  const modelName = "yolov8n.onnx";
+  const modelName = "fish.onnx";
   const modelInputShape = [1, 3, 640, 640];
   const topk = 100;
   const iouThreshold = 0.45;
