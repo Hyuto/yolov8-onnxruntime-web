@@ -17,8 +17,8 @@ Serving YOLOv8 in browser using onnxruntime-web with `wasm` backend.
 ## Setup
 
 ```bash
-git clone https://github.com/Hyuto/yolov8-onnxruntime-web.git
-cd yolov8-onnxruntime-web
+git clone https://github.com/ramintoosi/yolov8-web.git
+cd yolov8-web
 yarn install # Install dependencies
 ```
 
@@ -44,7 +44,7 @@ size       : 13 Mb
 
 ONNX model to perform NMS operator [CUSTOM].
 
-[![nms-yolov8.onnx](https://img.shields.io/badge/nms--yolov8.onnx-black?logo=onnx)](https://netron.app/?url=https://raw.githubusercontent.com/Hyuto/yolov8-onnxruntime-web/master/public/model/nms-yolov8.onnx)
+[![nms-yolov8.onnx](https://img.shields.io/badge/nms--yolov8.onnx-black?logo=onnx)](https://netron.app/?url=https://raw.githubusercontent.com/ramintoosi/yolov8-web/master/public/model/nms-yolov8.onnx)
 
 ## Use another model
 
