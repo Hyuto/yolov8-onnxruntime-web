@@ -19,7 +19,7 @@ const App = () => {
 
 
   // Configs
-  const modelName = "fish.onnx";
+  const modelName = "yolov8n.onnx";
   const modelInputShape = [1, 3, 640, 640];
   const topk = 100;
   const iouThreshold = 0.45;
@@ -35,7 +35,7 @@ const App = () => {
       //const url = URL.createObjectURL(e.target.files[0]); // create image url
       imageRef.current.src = imageSrc; // set image source
 
-    }, 10);
+    }, 1);
 
 
   }, [webcamRef]);
