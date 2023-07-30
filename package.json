@@ -7,12 +7,14 @@
     "onnxruntime-web": "^1.13.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1"
+    "react-interval-hook": "^1.1.3",
+    "react-scripts": "5.0.1",
+    "react-webcam": "^7.1.1"
   },
   "scripts": {
     "start": "craco start",
     "build": "craco build",
-    "predeploy" : "npm run build",
+    "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
   "eslintConfig": {

@@ -1,10 +1,12 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import cv from "@techstark/opencv-js";
 import { Tensor, InferenceSession } from "onnxruntime-web";
 import Loader from "./components/loader";
 import { detectImage } from "./utils/detect";
 import { download } from "./utils/download";
 import "./style/App.css";
+import Webcam from "react-webcam";
+import { useInterval } from 'react-interval-hook';
 
 const App = () => {
   const [session, setSession] = useState(null);
@@ -13,6 +15,8 @@ const App = () => {
   const inputImage = useRef(null);
   const imageRef = useRef(null);
   const canvasRef = useRef(null);
+  const webcamRef = useRef(null);
+
 
   // Configs
   const modelName = "fish.onnx";
@@ -20,6 +24,22 @@ const App = () => {
   const topk = 100;
   const iouThreshold = 0.45;
   const scoreThreshold = 0.25;
+
+
+  const capture = useCallback(() => {
+
+    const int = setInterval(() => {
+      const imageSrc = webcamRef.current.getScreenshot();
+      setImage(imageSrc);
+
+      //const url = URL.createObjectURL(e.target.files[0]); // create image url
+      imageRef.current.src = imageSrc; // set image source
+
+    }, 10);
+
+
+  }, [webcamRef]);
+
 
   // wait until opencv.js initialized
   cv["onRuntimeInitialized"] = async () => {
@@ -68,6 +88,8 @@ const App = () => {
         </p>
       </div>
 
+      <Webcam height={600} width={600} ref={webcamRef} />
+      <button onClick={e => { capture() }}>Enable Webcam</button>
       <div className="content">
         <img
           ref={imageRef}
