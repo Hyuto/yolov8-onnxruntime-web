@@ -46,8 +46,8 @@ export const renderBoxes = (canvas, boxes) => {
     );
 
     // Draw labels
-    ctx.fillStyle = "#ffffff";
-    ctx.fillText(klass + " - " + score + "%", x1 - 1, yText < 0 ? 1 : yText + 1);
+//    ctx.fillStyle = "#ffffff";
+//    ctx.fillText(klass + " - " + score + "%", x1 - 1, yText < 0 ? 1 : yText + 1);
   });
 };
 
