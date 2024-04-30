@@ -3,11 +3,13 @@
   "homepage": "https://hyuto.github.io/yolov8-onnxruntime-web/",
   "version": "0.1.0",
   "dependencies": {
-    "@techstark/opencv-js": "4.5.5-release.2",
+    "@techstark/opencv-js": "4.9.0-release.3",
     "onnxruntime-web": "^1.13.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1"
+    "react-scripts": "5.0.1",
+    "xgplayer": "^3.0.12",
+    "xgplayer-flv": "^3.0.12"
   },
   "scripts": {
     "start": "craco start",

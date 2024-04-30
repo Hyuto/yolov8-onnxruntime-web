@@ -1,9 +1,8 @@
-# YOLOv8 with onnxruntime-web
+# YOLOv8 with onnxruntime-web to infer video streams in browser
 
 <p align="center">
   <img src="./sample.png" />
 </p>
-
 ![love](https://img.shields.io/badge/Made%20with-🖤-white)
 ![react](https://img.shields.io/badge/React-blue?logo=react)
 ![onnxruntime-web](https://img.shields.io/badge/onnxruntime--web-white?logo=onnx&logoColor=black)
@@ -11,16 +10,19 @@
 
 ---
 
-Object Detection application right in your browser.
+Object Detection on `flv` video streams application right in your browser.
 Serving YOLOv8 in browser using onnxruntime-web with `wasm` backend.
 
 ## Setup
 
 ```bash
-git clone https://github.com/Hyuto/yolov8-onnxruntime-web.git
+git clone https://github.com/bankxi/yolov8-onnxruntime-web.git
 cd yolov8-onnxruntime-web
 yarn install # Install dependencies
+vi src/App.js # edit flv-url in line 58
 ```
+
+The flv address is recommended to be obtained in the F12 developer mode of Tiktok Live
 
 ## Scripts
 
@@ -28,6 +30,10 @@ yarn install # Install dependencies
 yarn start # Start dev server
 yarn build # Build for productions
 ```
+
+The effect is as follows:
+
+![](./src/imgs/1714463883410.jpg)
 
 ## Models
 
